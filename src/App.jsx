@@ -1,122 +1,398 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useState } from 'react';
+import Reveal from './components/Reveal.jsx';
+import Parallax from './components/Parallax.jsx';
 
-function App() {
-  const [count, setCount] = useState(0)
+const assets = './assets';
 
+const pillars = [
+  {
+    title: 'Marketing',
+    icon: `${assets}/icon-marketing.png`,
+    copy: 'Data-driven strategies that turn ideas into measurable growth.',
+  },
+  {
+    title: 'Intelligence',
+    icon: `${assets}/icon-intelligence.png`,
+    copy: 'AI solutions designed around the needs of your business.',
+  },
+  {
+    title: 'Design',
+    icon: `${assets}/icon-design.png`,
+    copy: 'Purposeful experiences that connect, engage, and convert.',
+  },
+];
+
+function ArrowIcon() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h13M13 6l6 6-6 6" />
+    </svg>
+  );
 }
 
-export default App
+function Header() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 20);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
+
+  useEffect(() => {
+    const closeOnResize = () => {
+      if (window.innerWidth > 760) setOpen(false);
+    };
+    window.addEventListener('resize', closeOnResize);
+    return () => window.removeEventListener('resize', closeOnResize);
+  }, []);
+
+  const closeMenu = () => setOpen(false);
+
+  return (
+    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+      <a className="header-logo" href="#top" aria-label="MIND home" onClick={closeMenu}>
+        <img src={`${assets}/mind-logo-mark.png`} alt="MIND" />
+      </a>
+
+      <button
+        className={`menu-toggle ${open ? 'is-open' : ''}`}
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded={open}
+        aria-controls="primary-navigation"
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span />
+        <span />
+      </button>
+
+      <nav id="primary-navigation" className={`primary-nav ${open ? 'is-open' : ''}`}>
+        <a href="#who-we-are" onClick={closeMenu}>Who we are</a>
+        <a href="#what-we-do" onClick={closeMenu}>What we do</a>
+        <a href="#custom-ai" onClick={closeMenu}>Custom AI</a>
+        <a href="#contact" onClick={closeMenu}>Contact</a>
+      </nav>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero" id="top" aria-labelledby="hero-title">
+      <div className="hero-glow hero-glow--one" />
+      <div className="hero-glow hero-glow--two" />
+
+      <Parallax className="hero-person" strength={0.035}>
+        <img
+          src={`${assets}/hero-laptop-person.png`}
+          alt="Creative professional working on a laptop"
+          fetchPriority="high"
+        />
+      </Parallax>
+
+      <h1 className="hero-title" id="hero-title">
+        <span>Intelligence</span>
+        <span>that drives</span>
+        <span>growth.</span>
+      </h1>
+
+      {/* <a className="hero-scroll" href="#who-we-are" aria-label="Scroll to learn more">
+        <span>Explore</span>
+        <ArrowIcon />
+      </a> */}
+    </section>
+  );
+}
+
+function Intro() {
+  return (
+    <section className="intro section-pad" id="who-we-are">
+      <Reveal className="intro-card">
+        <p className="eyebrow">Where strategy meets intelligence</p>
+        <p className="intro-lead">
+          MIND combines marketing, design, and tailored AI solutions to help businesses
+          grow smarter, connect better, and move forward with purpose.
+        </p>
+
+        <div className="pillars">
+          {pillars.map((pillar, index) => (
+            <Reveal className="pillar" delay={index * 110} key={pillar.title}>
+              <div className="pillar-icon-wrap">
+                <img src={pillar.icon} alt="" aria-hidden="true" />
+              </div>
+              <h2>{pillar.title}</h2>
+              <p>{pillar.copy}</p>
+            </Reveal>
+          ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+function AccessibleGrowth() {
+  return (
+    <section className="accessible-growth" aria-labelledby="accessible-title">
+      <div className="pattern-layer" />
+      <Reveal className="accessible-copy" direction="left">
+        <h2 id="accessible-title">
+          AI made accessible.
+          <span>Growth made possible.</span>
+        </h2>
+      </Reveal>
+      <Parallax className="woman-phone" strength={0.045}>
+        <img src={`${assets}/woman-phone.png`} alt="Woman using a smartphone" loading="lazy" />
+      </Parallax>
+    </section>
+  );
+}
+
+function WhatWeDo() {
+  return (
+    <section className="what-we-do section-pad" id="what-we-do" aria-labelledby="what-title">
+      <Reveal className="section-title-stack" direction="left">
+        <h2 id="what-title">
+          What
+          <span>we</span>
+          <span>do</span>
+        </h2>
+      </Reveal>
+
+      <Reveal className="what-card" direction="right">
+        <p className="what-kicker">From digital strategy to intelligent conversations.</p>
+        <p>
+          We help your business strengthen its digital presence and grow through strategic
+          marketing and custom AI solutions built around your unique needs.
+        </p>
+        <p>
+          Our digital marketing strategies combine audience insights, brand positioning,
+          content, search, paid media, and conversion-focused experiences aligned with your goals.
+        </p>
+      </Reveal>
+    </section>
+  );
+}
+
+function AIPowered() {
+  return (
+    <section className="ai-powered" id="custom-ai" aria-labelledby="ai-powered-title">
+      <h2 id="ai-powered-title" className="sr-only">AI-powered custom solutions</h2>
+      <Parallax className="ai-powered-visual" strength={0.025}>
+        <img src={`${assets}/ai-powered-banner.png`} alt="AI-powered visual with luminous data trails" loading="lazy" />
+      </Parallax>
+
+      <div className="ai-solution section-pad">
+        <Reveal className="ai-copy-card" direction="left">
+          <p>
+            We create AI chat experiences tailored to your business’s knowledge, services,
+            processes, and voice. From customer support and product recommendations to lead
+            qualification and internal automation, every solution is designed to solve your real
+            business needs.
+          </p>
+          <a className="text-link" href="#contact">
+            Start a conversation <ArrowIcon />
+          </a>
+        </Reveal>
+
+        <Parallax className="reservation-phone" strength={0.06}>
+          <img
+            src={`${assets}/ai-reservation-phone.png`}
+            alt="AI table reservation assistant displayed on a smartphone"
+            loading="lazy"
+          />
+        </Parallax>
+      </div>
+    </section>
+  );
+}
+
+function UseCases() {
+  return (
+    <section className="use-cases section-pad" aria-labelledby="use-cases-title">
+      <Reveal className="use-cases-heading">
+        <p className="eyebrow">Practical intelligence</p>
+        <h2 id="use-cases-title">Built for every business.</h2>
+      </Reveal>
+
+      <div className="use-case-grid">
+        <Reveal className="use-card use-card--wide">
+          <div className="use-card-visual use-card-visual--laptop">
+            <img
+              src={`${assets}/personal-projects-laptop.png`}
+              alt="Personal portfolio AI assistant displayed on a laptop"
+              loading="lazy"
+            />
+          </div>
+          <div className="use-card-copy">
+            <span>01</span>
+            <h3>Personal projects</h3>
+            <p>Turn a portfolio or personal brand into an interactive, always-available experience.</p>
+            <a href="#contact">Try it now <ArrowIcon /></a>
+          </div>
+        </Reveal>
+
+        <Reveal className="use-card" delay={90}>
+          <div className="use-card-copy">
+            <span>02</span>
+            <h3>Your ecommerce</h3>
+            <p>Guide shoppers to the right product with natural, useful conversations.</p>
+          </div>
+          <div className="use-card-visual use-card-visual--phone">
+            <img
+              src={`${assets}/ecommerce-phone.png`}
+              alt="AI product recommendation assistant displayed on a smartphone"
+              loading="lazy"
+            />
+          </div>
+        </Reveal>
+
+        <Reveal className="use-card" delay={180}>
+          <div className="use-card-copy">
+            <span>03</span>
+            <h3>Analyse your data</h3>
+            <p>Make campaign performance easier to understand and act on.</p>
+          </div>
+          <div className="use-card-visual use-card-visual--phone use-card-visual--data">
+            <img
+              src={`${assets}/data-analysis-phone.png`}
+              alt="AI campaign insights assistant displayed on a smartphone"
+              loading="lazy"
+            />
+          </div>
+        </Reveal>
+      </div>
+
+      <Reveal className="demo-wrap">
+        <a className="button button--primary" href="#contact">
+          Request a demo <ArrowIcon />
+        </a>
+      </Reveal>
+    </section>
+  );
+}
+
+function MindYourBusiness() {
+  return (
+    <section className="mind-business" aria-labelledby="mind-business-title">
+      <div className="mind-business-bg" />
+      <div className="mind-business-card-position">
+        <Reveal className="mind-business-card" direction="left">
+          <p className="eyebrow">Designed around your reality</p>
+          <h2 id="mind-business-title">
+            Mind
+            <span>your</span>
+            <span>business.</span>
+          </h2>
+          <p>
+            Strategy, technology and creativity working together—without unnecessary complexity.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSubmitted(true);
+    event.currentTarget.reset();
+  };
+
+  return (
+    <section className="contact-section section-pad" id="contact" aria-labelledby="contact-title">
+      <Reveal className="contact-copy" direction="left">
+        <h2 id="contact-title">
+          Have a project
+          <span>in mind?</span>
+        </h2>
+        <p>
+          Whether you need a stronger digital presence, a smarter marketing strategy, or a custom
+          AI solution,
+          <strong>MIND is ready to help bring your next idea to life.</strong>
+        </p>
+      </Reveal>
+
+      <Reveal className="contact-panel" direction="right">
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <label>
+            <span>Name</span>
+            <input name="name" type="text" autoComplete="name" required placeholder="Your name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autoComplete="email" required placeholder="Email address" />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" required placeholder="Tell us about your project" />
+          </label>
+          <button className="button button--submit" type="submit">
+            Send <ArrowIcon />
+          </button>
+          <p className={`form-status ${submitted ? 'is-visible' : ''}`} aria-live="polite">
+            Thank you — your message is ready. Connect this form to your preferred endpoint before launch.
+          </p>
+        </form>
+
+        <div className="social-links" aria-label="Social links">
+          <a href="#instagram" aria-label="Instagram">
+            <img src={`${assets}/social-instagram.png`} alt="" aria-hidden="true" />
+            <span>Mind.ai</span>
+          </a>
+          <a href="#whatsapp" aria-label="WhatsApp">
+            <img src={`${assets}/social-whatsapp.png`} alt="" aria-hidden="true" />
+            <span>(999) 999-9999</span>
+          </a>
+          <a href="#linkedin" aria-label="LinkedIn">
+            <img src={`${assets}/social-linkedin.png`} alt="" aria-hidden="true" />
+            <span>Mind.ai</span>
+          </a>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer">
+      <div className="footer-brand">
+        <img src={`${assets}/mind-logo-full.png`} alt="MIND — Marketing, Intelligence & Design" />
+        <p>Marketing, design, and custom AI solutions built to move your business forward.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="#who-we-are">Who we are</a>
+        <a href="#what-we-do">What we do</a>
+        <a href="#custom-ai">Custom AI</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p className="copyright">© 2026 MIND. All rights reserved.</p>
+    </footer>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <Header />
+      <main id="main-content">
+        <Hero />
+        <Intro />
+        <AccessibleGrowth />
+        <WhatWeDo />
+        <AIPowered />
+        <UseCases />
+        <MindYourBusiness />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}

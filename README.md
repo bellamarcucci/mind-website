@@ -1,16 +1,30 @@
-# React + Vite
+# MIND — React Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Responsive React/Vite implementation based on the supplied MIND wireframe and image assets.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## Production build
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+npm run preview
+```
 
-## Expanding the Oxlint configuration
+## Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- `src/App.jsx`: page structure and content
+- `src/styles.css`: layout, responsive breakpoints and motion
+- `src/components/Reveal.jsx`: intersection-based entrance animations
+- `src/components/Parallax.jsx`: lightweight scroll parallax
+- `public/assets`: renamed and organized image assets supplied with the wireframe
+- `reference`: original wireframe and Figma HTML export
+
+## Before launch
+
+Replace the placeholder social links/phone number and connect the contact form to a real endpoint (Formspree, Netlify Forms, a custom API, etc.).
