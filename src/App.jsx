@@ -143,9 +143,9 @@ function AccessibleGrowth() {
           <span>Growth made possible.</span>
         </h2>
       </Reveal>
-      <Parallax className="woman-phone" strength={0.045}>
+      <div className="woman-phone">
         <img src={`${assets}/woman-phone.png`} alt="Woman using a smartphone" loading="lazy" />
-      </Parallax>
+      </div>
     </section>
   );
 }

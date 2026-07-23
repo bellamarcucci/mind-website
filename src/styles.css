@@ -133,7 +133,7 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   background: rgba(31, 8, 31, 0.48);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.13);
+  /* box-shadow: 0 16px 48px rgba(0, 0, 0, 0.13); */
   backdrop-filter: blur(18px);
   transform: translateX(-50%);
   transition: background 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
@@ -448,8 +448,8 @@ main {
 /* Pattern statement */
 .accessible-growth {
   position: relative;
-  min-height: 720px;
-  /* overflow: hidden; */
+  min-height: 150vh;
+  overflow: hidden;
   isolation: isolate;
 }
 
@@ -457,11 +457,13 @@ main {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background-image:
-    linear-gradient(180deg, rgba(31, 0, 34, 0.12), rgba(29, 0, 30, 0.5)),
-    url('../assets/mind-pattern.png');
-  background-position: center;
-  background-size: cover;
+  /* background-color: #1d021e; */
+  background-image: url('../assets/mind-pattern.png');
+    /* radial-gradient(circle at 20% 48%, rgba(105, 35, 67, 0.34), transparent 43%),
+    linear-gradient(110deg, #2b101d 0%, #250520 52%, #100019 100%); */
+  /* background-position: center 196px, center, center; */
+  background-repeat: no-repeat;
+  /* background-size: 100% auto, cover, cover; */
 }
 
 .accessible-growth::after {
@@ -470,26 +472,26 @@ main {
   bottom: 0;
   left: 0;
   z-index: -1;
-  height: 60%;
+  height: 48%;
   content: '';
-  background: linear-gradient(180deg, transparent, rgba(30, 0, 31, 0.48));
+  background: linear-gradient(180deg, transparent, rgba(14, 0, 18, 0.72));
 }
 
 .accessible-copy {
   position: absolute;
-  bottom: 95px;
-  left: max(7vw, calc((100vw - 1180px) / 2));
+  bottom: 11.5%;
+  left: 9.5vw;
   z-index: 3;
-  max-width: 620px;
+  max-width: 760px;
 }
 
 .accessible-copy h2 {
   margin: 0;
-  color: rgba(180, 88, 168, 0.42);
+  color: rgba(151, 91, 143, 0.66);
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(4rem, 7vw, 7rem);
+  font-size: clamp(4.75rem, 5.65vw, 5.6rem);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 1.27;
   text-transform: uppercase;
 }
 
@@ -499,13 +501,10 @@ main {
 
 .woman-phone {
   position: absolute;
-  right: max(5vw, calc((100vw - 1220px) / 2));
-  bottom: -10px;
+  right: 0;
+  bottom: -78px;
   z-index: 1;
-  width: min(510px, 40vw);
-  transform: translate3d(0, var(--parallax-y, 0), 0);
-  will-change: transform;
-  
+  width: clamp(540px, 39vw, 620px);
 }
 
 .woman-phone img {
@@ -518,20 +517,29 @@ main {
 /* What we do */
 .what-we-do {
   display: grid;
-  min-height: 670px;
-  grid-template-columns: 0.76fr 1.24fr;
+  width: 85vw;
+  max-width: 1340px;
+  min-height: 950px;
+  margin-right: 6vw;
+  margin-left: 9vw;
+  grid-template-columns: 370px minmax(0, 1fr);
   align-items: center;
-  gap: 70px;
-  padding-block: 105px 125px;
+  gap: 0;
+  padding-block: 140px 95px;
+}
+
+.section-title-stack {
+  position: relative;
+  z-index: 2;
 }
 
 .section-title-stack h2 {
   margin: 0;
-  color: rgba(183, 105, 172, 0.4);
+  color: rgba(144, 81, 135, 0.7);
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(6rem, 10vw, 10rem);
-  font-weight: 400;
-  line-height: 0.85;
+  font-size: clamp(10rem, 12.7vw, 12.5rem);
+  font-weight: 550;
+  line-height: 1;
   text-transform: uppercase;
 }
 
@@ -540,30 +548,39 @@ main {
 }
 
 .what-card {
-  padding: clamp(38px, 5vw, 70px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  z-index: 1;
+  width: calc(100% + 248px);
+  min-height: 645px;
+  margin-left: -248px;
+  padding: 64px clamp(70px, 7.5vw, 120px) 64px clamp(230px, 18.5vw, 293px);
+  border: 1px solid rgba(255, 255, 255, 0.007);
   border-radius: var(--radius-xl);
   background: linear-gradient(145deg, rgba(63, 22, 58, 0.7), rgba(40, 8, 42, 0.52));
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.192);
 }
 
 .what-card p {
   margin: 0;
   color: var(--muted);
-  font-size: clamp(0.98rem, 1.35vw, 1.14rem);
-  font-weight: 300;
-  line-height: 1.75;
+  font-size: clamp(1rem, 1.4vw, 1.68rem);
+  font-weight: 200;
+  line-height: 1.9;
+  padding-top: 1.5rem;
 }
 
 .what-card p + p {
-  margin-top: 24px;
+  margin-top: 48px;
 }
 
 .what-card .what-kicker {
+  max-width: 660px;
+  margin-inline: auto;
   color: #fff;
-  font-size: clamp(1.2rem, 2vw, 1.75rem);
-  font-weight: 500;
-  line-height: 1.4;
+  font-size: clamp(1.7rem, 2.5vw, 2.5rem);
+  font-weight: 200;
+  line-height: 1.55;
+  text-align: center;
 }
 
 /* AI */
@@ -1201,6 +1218,7 @@ main {
 
   .woman-phone {
     right: -10px;
+    bottom: -42px;
     width: min(470px, 47vw);
   }
 
@@ -1210,8 +1228,39 @@ main {
   }
 
   .what-we-do {
+    width: var(--container);
+    max-width: none;
+    min-height: 670px;
+    margin-inline: auto;
     grid-template-columns: 0.7fr 1.3fr;
     gap: 38px;
+    padding-block: 105px 125px;
+  }
+
+  .section-title-stack h2 {
+    font-size: clamp(7rem, 15vw, 9.5rem);
+    line-height: 1;
+  }
+
+  .what-card {
+    width: calc(100% + 60px);
+    min-height: 0;
+    margin-left: -60px;
+    padding: 50px;
+  }
+
+  .what-card p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.75;
+  }
+
+  .what-card p + p {
+    margin-top: 28px;
+  }
+
+  .what-card .what-kicker {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.45;
   }
 
   .ai-solution {
@@ -1401,8 +1450,8 @@ main {
   }
 
   .pattern-layer {
-    background-position: center;
-    background-size: auto 100%;
+    background-position: center, center, center;
+    background-size: auto 100%, cover, cover;
   }
 
   .accessible-copy {
@@ -1435,6 +1484,9 @@ main {
   }
 
   .what-card {
+    width: 100%;
+    min-height: 0;
+    margin-left: 0;
     padding: 32px 24px;
   }
 
