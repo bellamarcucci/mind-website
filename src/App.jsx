@@ -35,8 +35,22 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 20);
-    update();
+    let previousScrollY = window.scrollY;
+
+    setScrolled(previousScrollY > 20);
+
+    const update = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < previousScrollY) {
+        setScrolled(false);
+      } else if (currentScrollY > previousScrollY && currentScrollY > 20) {
+        setScrolled(true);
+      }
+
+      previousScrollY = currentScrollY;
+    };
+
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, []);
@@ -50,6 +64,30 @@ function Header() {
   }, []);
 
   const closeMenu = () => setOpen(false);
+  const navigateToSection = (event) => {
+    const href = event.currentTarget.getAttribute('href');
+    const target = document.querySelector(href);
+
+    if (!target) return;
+
+    event.preventDefault();
+    closeMenu();
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+
+    if (href === '#who-we-are') {
+      const rect = target.getBoundingClientRect();
+      const centeredTop = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+
+      window.scrollTo({
+        top: Math.max(0, centeredTop - 120),
+        behavior,
+      });
+    } else {
+      target.scrollIntoView({ behavior, block: 'center' });
+    }
+
+    window.history.replaceState(null, '', href);
+  };
 
   return (
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
@@ -70,10 +108,10 @@ function Header() {
       </button>
 
       <nav id="primary-navigation" className={`primary-nav ${open ? 'is-open' : ''}`}>
-        <a href="#who-we-are" onClick={closeMenu}>Who we are</a>
-        <a href="#what-we-do" onClick={closeMenu}>What we do</a>
-        <a href="#custom-ai" onClick={closeMenu}>Custom AI</a>
-        <a href="#contact" onClick={closeMenu}>Contact</a>
+        <a href="#who-we-are" onClick={navigateToSection}>Who we are</a>
+        <a href="#what-we-do" onClick={navigateToSection}>What we do</a>
+        <a href="#custom-ai" onClick={navigateToSection}>Custom AI</a>
+        <a href="#contact" onClick={navigateToSection}>Contact</a>
       </nav>
     </header>
   );
@@ -303,12 +341,35 @@ function MindYourBusiness() {
 }
 
 function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const [formStatus, setFormStatus] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
-    event.currentTarget.reset();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setFormStatus('sending');
+
+    try {
+      const response = await fetch('https://formspree.io/f/mrejrvwe', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        form.reset();
+      } else {
+        setFormStatus('error');
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setFormStatus('error');
+    }
   };
 
   return (
@@ -340,12 +401,26 @@ function Contact() {
                 <span>Message</span>
                 <textarea name="message" rows="5" required placeholder="Tell us about your project" />
               </label>
-              <button className="button button--submit" type="submit">
-                Send
+              <button
+                className="button button--submit"
+                type="submit"
+                disabled={formStatus === 'sending'}
+              >
+                {formStatus === 'sending' ? 'Sending...' : 'Send'}
               </button>
-              <p className={`form-status ${submitted ? 'is-visible' : ''}`} aria-live="polite">
-                Thank you — your message is ready. Connect this form to your preferred endpoint before launch.
-              </p>
+              <div className="form-status" aria-live="polite">
+                {formStatus === 'success' && (
+                  <p className="form-success">
+                    Thank you! Your message has been sent successfully. We’ll get back to you soon.
+                  </p>
+                )}
+
+                {formStatus === 'error' && (
+                  <p className="form-error">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
+              </div>
           </form>
         </Reveal>
 
