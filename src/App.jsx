@@ -192,9 +192,9 @@ function AIPowered() {
             qualification and internal automation, every solution is designed to solve your real
             business needs.
           </p>
-          <a className="text-link" href="#contact">
+          {/* <a className="text-link" href="#contact">
             Start a conversation <ArrowIcon />
-          </a>
+          </a> */}
         </Reveal>
 
         <Parallax className="reservation-phone" strength={0.06}>
@@ -213,7 +213,6 @@ function UseCases() {
   return (
     <section className="use-cases section-pad" aria-labelledby="use-cases-title">
       <Reveal className="use-cases-heading">
-        <p className="eyebrow">Practical intelligence</p>
         <h2 id="use-cases-title">Built for every business.</h2>
       </Reveal>
 
@@ -227,16 +226,29 @@ function UseCases() {
             />
           </div>
           <div className="use-card-copy">
-            <span>01</span>
-            <h3>Personal projects</h3>
+            <h3>
+              <a
+                className="use-card-title-link"
+                href="https://isabellamarcucci.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Personal projects
+              </a>
+            </h3>
             <p>Turn a portfolio or personal brand into an interactive, always-available experience.</p>
-            <a href="#contact">Try it now <ArrowIcon /></a>
+            <a
+              href="https://isabellamarcucci.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Try it now <ArrowIcon />
+            </a>
           </div>
         </Reveal>
 
-        <Reveal className="use-card" delay={90}>
-          <div className="use-card-copy">
-            <span>02</span>
+        <Reveal className="use-card use-card--compact" delay={90}>
+          <div className="use-card-copy use-card-copy--centered">
             <h3>Your ecommerce</h3>
             <p>Guide shoppers to the right product with natural, useful conversations.</p>
           </div>
@@ -249,9 +261,8 @@ function UseCases() {
           </div>
         </Reveal>
 
-        <Reveal className="use-card" delay={180}>
-          <div className="use-card-copy">
-            <span>03</span>
+        <Reveal className="use-card use-card--compact" delay={180}>
+          <div className="use-card-copy use-card-copy--centered">
             <h3>Analyse your data</h3>
             <p>Make campaign performance easier to understand and act on.</p>
           </div>
@@ -267,7 +278,7 @@ function UseCases() {
 
       <Reveal className="demo-wrap">
         <a className="button button--primary" href="#contact">
-          Request a demo <ArrowIcon />
+          Request a Demo
         </a>
       </Reveal>
     </section>
@@ -280,15 +291,11 @@ function MindYourBusiness() {
       <div className="mind-business-bg" />
       <div className="mind-business-card-position">
         <Reveal className="mind-business-card" direction="left">
-          <p className="eyebrow">Designed around your reality</p>
-          <h2 id="mind-business-title">
-            Mind
+            <h2 id="mind-business-title">
+            <span className="mind-business-word--blurred">Mind</span>
             <span>your</span>
             <span>business.</span>
           </h2>
-          <p>
-            Strategy, technology and creativity working together—without unnecessary complexity.
-          </p>
         </Reveal>
       </div>
     </section>
@@ -306,55 +313,57 @@ function Contact() {
 
   return (
     <section className="contact-section section-pad" id="contact" aria-labelledby="contact-title">
-      <Reveal className="contact-copy" direction="left">
-        <h2 id="contact-title">
-          Have a project
-          <span>in mind?</span>
-        </h2>
-        <p>
-          Whether you need a stronger digital presence, a smarter marketing strategy, or a custom
-          AI solution,
-          <strong>MIND is ready to help bring your next idea to life.</strong>
-        </p>
-      </Reveal>
-
-      <Reveal className="contact-panel" direction="right">
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <label>
-            <span>Name</span>
-            <input name="name" type="text" autoComplete="name" required placeholder="Your name" />
-          </label>
-          <label>
-            <span>Email</span>
-            <input name="email" type="email" autoComplete="email" required placeholder="Email address" />
-          </label>
-          <label>
-            <span>Message</span>
-            <textarea name="message" rows="5" required placeholder="Tell us about your project" />
-          </label>
-          <button className="button button--submit" type="submit">
-            Send <ArrowIcon />
-          </button>
-          <p className={`form-status ${submitted ? 'is-visible' : ''}`} aria-live="polite">
-            Thank you — your message is ready. Connect this form to your preferred endpoint before launch.
+      <div className="contact-card">
+        <Reveal className="contact-copy" direction="left">
+          <h2 id="contact-title">
+            Have a project
+            <span>in mind?</span>
+          </h2>
+          <p>
+            Whether you need a stronger digital presence, a smarter marketing strategy, or a custom
+            AI solution,
+            <strong>MIND is ready to help bring your next idea to life.</strong>
           </p>
-        </form>
+        </Reveal>
+
+        <Reveal className="contact-panel" direction="right">
+          <form className="contact-form" onSubmit={handleSubmit}>
+              <label>
+                <span>Name</span>
+                <input name="name" type="text" autoComplete="name" required placeholder="Your name" />
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" autoComplete="email" required placeholder="Email address" />
+              </label>
+              <label>
+                <span>Message</span>
+                <textarea name="message" rows="5" required placeholder="Tell us about your project" />
+              </label>
+              <button className="button button--submit" type="submit">
+                Send
+              </button>
+              <p className={`form-status ${submitted ? 'is-visible' : ''}`} aria-live="polite">
+                Thank you — your message is ready. Connect this form to your preferred endpoint before launch.
+              </p>
+          </form>
+        </Reveal>
 
         <div className="social-links" aria-label="Social links">
-          <a href="#instagram" aria-label="Instagram">
-            <img src={`${assets}/social-instagram.png`} alt="" aria-hidden="true" />
-            <span>Mind.ai</span>
-          </a>
-          <a href="#whatsapp" aria-label="WhatsApp">
-            <img src={`${assets}/social-whatsapp.png`} alt="" aria-hidden="true" />
-            <span>(999) 999-9999</span>
-          </a>
-          <a href="#linkedin" aria-label="LinkedIn">
-            <img src={`${assets}/social-linkedin.png`} alt="" aria-hidden="true" />
-            <span>Mind.ai</span>
-          </a>
+              <a href="#instagram" aria-label="Instagram">
+                <img src={`${assets}/social-instagram.png`} alt="" aria-hidden="true" />
+                <span>Mind.ai</span>
+              </a>
+              <a href="#whatsapp" aria-label="WhatsApp">
+                <img src={`${assets}/social-whatsapp.png`} alt="" aria-hidden="true" />
+                <span>(999) 999-9999</span>
+              </a>
+              <a href="#linkedin" aria-label="LinkedIn">
+                <img src={`${assets}/social-linkedin.png`} alt="" aria-hidden="true" />
+                <span>Mind.ai</span>
+              </a>
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 }
