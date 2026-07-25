@@ -1908,19 +1908,18 @@ main {
   }
 
   .hero-person {
-    top: -10px;
-    left: clamp(-205px, -40vw, -145px);
+    top: -5px;
+    left: 0;
     width: min(650px, 165vw);
   }
 
   .hero-title {
-    top: 0;
-    left: 0;
-    width: calc(100% - 28px);
-    margin: 106px 14px 0;
-    font-size: clamp(4.5rem, 20vw, 6.6rem);
-    line-height: 0.84;
-    text-align: right;
+    top: -4rem;
+    left: 11rem;
+    width: min(600px, calc(100% - 30px));
+    margin: 96px auto 0;
+    font-size: clamp(5.4rem, 19vw, 7.5rem);
+    line-height: 0.88;
   }
 
   .hero-title span {
@@ -2468,14 +2467,56 @@ main {
 }
 
 @media (max-width: 430px) {
+  .hero {
+    min-height: clamp(600px, 145vw, 680px);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    z-index: -1;
+  }
+
   .hero-person {
-    left: -176px;
-    width: 595px;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: clamp(560px, 138vw, 595px);
+    isolation: isolate;
+  }
+
+  .hero-person img {
+    position: relative;
+    z-index: 0;
+  }
+
+  .hero-person::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(145deg, rgba(64, 21, 58, 0.216), rgba(23, 1, 24, 0.868));
+
   }
 
   .hero-title {
-    margin-top: 98px;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    z-index: 5;
+    width: min(410px, calc(100% - 24px));
+    margin: 0;
+    font-size: clamp(4.7rem, 19vw, 5.6rem);
+    line-height: 0.9;
+    text-align: center;
+    text-wrap: balance;
+    transform: translate(-50%, -50%);
   }
+
+  .hero-title span {
+  color: rgb(175, 76, 154);
+}
+
 
   .accessible-copy h2 {
     max-width: 250px;
