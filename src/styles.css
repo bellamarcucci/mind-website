@@ -2482,7 +2482,8 @@ main {
 
   .menu-toggle {
     order: 1;
-    margin-left: 4px;
+    margin-right: 4px;
+    margin-left: auto;
   }
 
   .hero {
