@@ -2501,6 +2501,8 @@ main {
     pointer-events: none;
     content: '';
     background: linear-gradient(145deg, rgba(64, 21, 58, 0.216), rgba(23, 1, 24, 0.868));
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0, 0, 0, 0.72) 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0, 0, 0, 0.72) 80%, transparent 100%);
 
   }
 
@@ -2519,7 +2521,7 @@ main {
   }
 
   .hero-title span {
-  color: rgb(175, 76, 154);
+  color: rgb(255, 255, 255);
 }
 
   .intro {
