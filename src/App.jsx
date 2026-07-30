@@ -65,8 +65,8 @@ function Header() {
 
   const closeMenu = () => setOpen(false);
   const navigateToSection = (event) => {
-    const href = event.currentTarget.getAttribute('href');
-    const target = document.querySelector(href);
+    const sectionName = event.currentTarget.dataset.section;
+    const target = document.getElementById(sectionName);
 
     if (!target) return;
 
@@ -74,7 +74,7 @@ function Header() {
     closeMenu();
     const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
-    if (href === '#who-we-are') {
+    if (sectionName === 'who-we-are') {
       const rect = target.getBoundingClientRect();
       const centeredTop = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
 
@@ -86,12 +86,22 @@ function Header() {
       target.scrollIntoView({ behavior, block: 'center' });
     }
 
-    window.history.replaceState(null, '', href);
+    window.history.replaceState(null, '', `/${sectionName}`);
+  };
+
+  const navigateToTop = (event) => {
+    event.preventDefault();
+    closeMenu();
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+    window.history.replaceState(null, '', '/');
   };
 
   return (
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
-      <a className="header-logo" href="#top" aria-label="MIND home" onClick={closeMenu}>
+      <a className="header-logo" href="/" aria-label="MIND home" onClick={navigateToTop}>
         <img src={`${assets}/mind-logo-mark.png`} alt="MIND" />
       </a>
 
@@ -108,10 +118,10 @@ function Header() {
       </button>
 
       <nav id="primary-navigation" className={`primary-nav ${open ? 'is-open' : ''}`}>
-        <a href="#who-we-are" onClick={navigateToSection}>Who we are</a>
-        <a href="#what-we-do" onClick={navigateToSection}>What we do</a>
-        <a href="#custom-ai" onClick={navigateToSection}>Custom AI</a>
-        <a href="#contact" onClick={navigateToSection}>Contact</a>
+        <a href="/who-we-are" data-section="who-we-are" onClick={navigateToSection}>Who we are</a>
+        <a href="/what-we-do" data-section="what-we-do" onClick={navigateToSection}>What we do</a>
+        <a href="/custom-ai" data-section="custom-ai" onClick={navigateToSection}>Custom AI</a>
+        <a href="/contact" data-section="contact" onClick={navigateToSection}>Contact</a>
       </nav>
     </header>
   );
