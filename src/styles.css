@@ -627,6 +627,11 @@ main {
   will-change: transform;
 }
 
+.ai-powered-visual picture {
+  display: block;
+  width: 100%;
+}
+
 .ai-powered-visual img {
   display: block;
   width: 100%;

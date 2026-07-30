@@ -219,7 +219,10 @@ function AIPowered() {
     <section className="ai-powered" id="custom-ai" aria-labelledby="ai-powered-title">
       <h2 id="ai-powered-title" className="sr-only">AI-powered custom solutions</h2>
       <Parallax className="ai-powered-visual" strength={0.025}>
-        <img src={`${assets}/ai-powered-banner.png`} alt="AI-powered visual with luminous data trails" loading="lazy" />
+        <picture>
+          <source media="(max-width: 760px)" srcSet={`${assets}/ai-powered-banner-mobile.png`} />
+          <img src={`${assets}/ai-powered-banner.png`} alt="AI-powered visual with luminous data trails" loading="lazy" />
+        </picture>
       </Parallax>
 
       <div className="ai-solution section-pad">
