@@ -2472,6 +2472,19 @@ main {
 }
 
 @media (max-width: 570px) {
+  .header-logo {
+    position: absolute;
+    left: 50%;
+    order: 2;
+    margin-right: 0;
+    transform: translateX(-50%);
+  }
+
+  .menu-toggle {
+    order: 1;
+    margin-left: 4px;
+  }
+
   .hero {
     min-height: clamp(600px, 145vw, 680px);
     overflow: hidden;
